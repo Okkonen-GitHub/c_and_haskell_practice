@@ -1,0 +1,12 @@
+
+alias b:= build
+alias c:= clean
+
+build ex: && (run ex)
+  gcc {{ex}}.c -Wall -O1 -o ./bin/{{ex}} 
+
+run ex:
+  ./bin/{{ex}}
+
+clean:
+  rm $(fd -t x . ./bin/)
