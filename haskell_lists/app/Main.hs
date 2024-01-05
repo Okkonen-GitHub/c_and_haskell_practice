@@ -41,15 +41,13 @@ test03 = unlines $ map show [r1, r2]
     r2 = isAsc [1,2,3,3,2,1]
 
 
--- hasPath :: [(Int, Int)] -> Int -> Int -> Bool
--- hasPath [] a b = False
-hasPath nodes a b = reachable_now || or peep
-  where
-    next' = filter (\x -> a == fst x) nodes
-    next = map snd next'
-    peep' = concatMap (\x -> filter (\y -> x == fst y) nodes) next
-    peep = map (\x -> hasPath nodes (fst x) b) peep'
-    reachable_now = any (\x -> fst x == a && snd x == b) nodes
+hasPath :: [(Int, Int)] -> Int -> Int -> Bool
+hasPath [] a b = a == b
+hasPath nodes a b
+  | a == b = True
+  | otherwise = or [ hasPath next x b | (x, y) <- nodes, x == a]
+    where 
+      next = [ (x,y) | (x,y) <- nodes, x /= a ]
 
 test04 :: String
 test04 = unlines $ map show [r1, r3]
