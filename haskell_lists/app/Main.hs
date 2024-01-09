@@ -58,12 +58,22 @@ test04 = unlines $ map show [r1, r3]
     r3 = hasPath test 4 1 -- false
 
 
+myRev :: [a] -> [a]
+myRev (x:xs) = foldl (flip (:)) [x] xs
+
+test05 :: String
+test05 = show r1
+  where
+    r1 = myRev [1,2,3]
+
+
 runtest :: Int -> String
 runtest ex
   | ex == 1 = test01
   | ex == 2 = test02
   | ex == 3 = test03
   | ex == 4 = test04
+  | ex == 5 = test05
   | otherwise = undefined
 
 
