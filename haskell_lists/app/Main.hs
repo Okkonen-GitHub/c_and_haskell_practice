@@ -66,6 +66,14 @@ test05 = show r1
   where
     r1 = myRev [1,2,3]
 
+prefixes :: [a] -> [[a]]
+prefixes (x:xs) = map myRev $ scanl (flip (:)) [x] xs
+
+
+test06 :: String
+test06 = show r1
+  where
+    r1 = prefixes [1,2,3]
 
 runtest :: Int -> String
 runtest ex
@@ -74,6 +82,7 @@ runtest ex
   | ex == 3 = test03
   | ex == 4 = test04
   | ex == 5 = test05
+  | ex == 6 = test06
   | otherwise = undefined
 
 
